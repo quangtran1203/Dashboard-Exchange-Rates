@@ -1,0 +1,32 @@
+.dashboardWrapper {
+    padding: 18px;
+    min-height: 100dvh;
+    background-color: #E5E4E2;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.chartSelect {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.chartWrapper {
+    height: 100%;
+    width: 100%;
+    flex: 0.8;
+}
+
+.currencySelect {
+    display: flex;
+    flex: 0.2;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+}
