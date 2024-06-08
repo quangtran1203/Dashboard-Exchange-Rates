@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ExchangeRateChart from "../../../components/ExchangeRateChart";
 import styles from "./dashboard.module.css";
 import { Typography, Select, InputLabel, MenuItem, FormControl, FormHelperText } from "@mui/material";
+import ExchangeRateTable from "../../../components/ExchangeRateTable";
 
 const App = () => {
     const [data, setData] = useState({ dates: [], cad: [], usd: [], eur: [] });
@@ -73,9 +74,7 @@ const App = () => {
                 <div className={styles.chartWrapper}><ExchangeRateChart data={data} /></div>
             </div>
 
-            <div>
-
-            </div>
+            <ExchangeRateTable data={data} />
         </div>
     );
 };

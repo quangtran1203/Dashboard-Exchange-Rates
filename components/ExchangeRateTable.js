@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'ag-grid-community/styles/ag-theme-quartz.css';
 
 const ExchangeRateTable = ({ data }) => {
     const rowData = data.dates.map((date, index) => ({
@@ -20,16 +20,17 @@ const ExchangeRateTable = ({ data }) => {
         sortable: true,
         filter: true,
         resizable: true,
+        flex: 1,
     }), []);
 
     return (
-        <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+        <div className="ag-theme-quartz-dark" style={{ height: 400, width: '100%' }}>
             <AgGridReact
                 rowData={rowData}
                 columnDefs={columnDefs}
                 defaultColDef={defaultColDef}
                 pagination={true}
-                paginationPageSize={10}
+                paginationPageSize={20}
             />
         </div>
     );
