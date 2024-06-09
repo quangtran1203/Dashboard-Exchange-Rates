@@ -4,10 +4,12 @@ import ExchangeRateChart from "../../../components/ExchangeRateChart";
 import styles from "./dashboard.module.css";
 import { Typography, Select, InputLabel, MenuItem, FormControl, FormHelperText } from "@mui/material";
 import ExchangeRateTable from "../../../components/ExchangeRateTable";
+import BackdropLoading from "../../../components/Backdrop";
 
 const App = () => {
     const [data, setData] = useState({ dates: [], cad: [], usd: [], eur: [] });
     const [baseCurrency, setBaseCurrency] = useState("USD");
+    const [loading, setLoading] = useState(false);
 
     const currentDate = new Date();
     const pastDate = new Date(currentDate);
@@ -22,6 +24,7 @@ const App = () => {
 
     const fetchExchangeRates = async (baseCurrency) => {
         try {
+            setLoading(true);
             const response = await fetch(
                 `https://api.frankfurter.app/${pastDateFormatted}..?from=${baseCurrency}&to=USD,CAD,EUR`
             );
@@ -40,8 +43,10 @@ const App = () => {
             }
 
             setData({ dates, cad, eur, usd });
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching exchange rates:", error);
+            setLoading(false);
         }
     };
 
@@ -55,6 +60,7 @@ const App = () => {
 
     return (
         <div className={styles.dashboardWrapper}>
+            <BackdropLoading open={loading} />
             <Typography variant="h4" color={"black"} gutterBottom>
                 Exchange Rate Data{" "}
                 <Typography variant="h5" color="black" component="span" gutterBottom>
