@@ -8,7 +8,7 @@ import BackdropLoading from "../../../components/Backdrop";
 
 const App = () => {
     const [data, setData] = useState({ dates: [], cad: [], usd: [], eur: [] });
-    const [baseCurrency, setBaseCurrency] = useState("USD");
+    const [baseCurrency, setBaseCurrency] = useState(!localStorage.getItem("baseCurrency") ? "USD" : localStorage.getItem("baseCurrency"));
     const [loading, setLoading] = useState(false);
 
     const currentDate = new Date();
@@ -56,6 +56,7 @@ const App = () => {
 
     const handleCurrencyChange = (event) => {
         setBaseCurrency(event.target.value);
+        localStorage.setItem("baseCurrency", event.target.value);
     }
 
     return (
