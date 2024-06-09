@@ -90,7 +90,7 @@ const ExchangeRateTable = ({ data }) => {
 
     const onGridReady = params => {
         setGridApi(params.api);
-        setColumnApi(params.columnApi);
+        setColumnApi(params.api);
         restoreGridSettings();
     };
 
