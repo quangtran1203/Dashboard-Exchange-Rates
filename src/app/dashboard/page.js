@@ -9,10 +9,21 @@ const App = () => {
     const [data, setData] = useState({ dates: [], cad: [], usd: [], eur: [] });
     const [baseCurrency, setBaseCurrency] = useState("USD");
 
+    const currentDate = new Date();
+    const pastDate = new Date(currentDate);
+    pastDate.setFullYear(pastDate.getFullYear() - 2);
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    const pastDateFormatted = formatDate(pastDate);
+
     const fetchExchangeRates = async (baseCurrency) => {
         try {
             const response = await fetch(
-                `https://api.frankfurter.app/2022-06-08..?from=${baseCurrency}&to=USD,CAD,EUR`
+                `https://api.frankfurter.app/${pastDateFormatted}..?from=${baseCurrency}&to=USD,CAD,EUR`
             );
             const result = await response.json();
 

@@ -4,17 +4,46 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 
 const ExchangeRateTable = ({ data }) => {
-    const rowData = data.dates.map((date, index) => ({
-        date,
-        cad: data.cad[index],
-        eur: data.eur[index],
-    }));
 
-    const columnDefs = useMemo(() => [
-        { headerName: 'Date', field: 'date', filter: 'agDateColumnFilter' },
-        { headerName: 'CAD', field: 'cad', filter: 'agNumberColumnFilter' },
-        { headerName: 'EUR', field: 'eur', filter: 'agNumberColumnFilter' },
-    ], []);
+    let rowData;
+    let columnDefs;
+    if (data.usd.length === 0) {
+        rowData = data.dates.map((date, index) => ({
+            date,
+            cad: data.cad[index],
+            eur: data.eur[index],
+        }));
+        columnDefs = [
+            { headerName: 'Date', field: 'date', filter: 'agDateColumnFilter' },
+            { headerName: 'CAD', field: 'cad', filter: 'agNumberColumnFilter' },
+            { headerName: 'EUR', field: 'eur', filter: 'agNumberColumnFilter' },
+        ]
+    }
+    else if (data.cad.length === 0) {
+        rowData = data.dates.map((date, index) => ({
+            date,
+            usd: data.usd[index],
+            eur: data.eur[index],
+        }));
+        columnDefs = [
+            { headerName: 'Date', field: 'date', filter: 'agDateColumnFilter' },
+            { headerName: 'USD', field: 'usd', filter: 'agNumberColumnFilter' },
+            { headerName: 'EUR', field: 'eur', filter: 'agNumberColumnFilter' },
+        ]
+    }
+    else {
+        rowData = data.dates.map((date, index) => ({
+            date,
+            usd: data.usd[index],
+            cad: data.cad[index],
+        }));
+        columnDefs = [
+            { headerName: 'Date', field: 'date', filter: 'agDateColumnFilter' },
+            { headerName: 'CAD', field: 'cad', filter: 'agNumberColumnFilter' },
+            { headerName: 'USD', field: 'usd', filter: 'agNumberColumnFilter' },
+        ]
+    }
+
 
     const defaultColDef = useMemo(() => ({
         sortable: true,
