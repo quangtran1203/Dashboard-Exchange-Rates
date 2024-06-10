@@ -5,6 +5,7 @@ import styles from "./dashboard.module.css";
 import { Typography, Select, InputLabel, MenuItem, FormControl, FormHelperText } from "@mui/material";
 import ExchangeRateTable from "../../../components/ExchangeRateTable";
 import BackdropLoading from "../../../components/Backdrop";
+import { formatRequest } from "../../../utils/formatRequest";
 
 const App = () => {
     const [data, setData] = useState({ dates: [], cad: [], usd: [], eur: [] });
@@ -43,6 +44,19 @@ const App = () => {
             }
 
             setData({ dates, cad, eur, usd });
+
+            // format req body data to make a POST req to backend server
+            const formattedData = formatRequest(baseCurrency, { dates, cad, eur, usd }, currentDate.toISOString());
+            const resFromBackend = await fetch("http://localhost:8000/api/exchange-rate-data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formattedData)
+            });
+            const resultFromBackend = await resFromBackend.json();
+            console.log(resultFromBackend);
+
             setLoading(false);
         } catch (error) {
             console.error("Error fetching exchange rates:", error);
