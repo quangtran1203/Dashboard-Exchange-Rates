@@ -6,11 +6,13 @@ import { Typography, Select, InputLabel, MenuItem, FormControl, FormHelperText }
 import ExchangeRateTable from "../../../components/ExchangeRateTable";
 import BackdropLoading from "../../../components/Backdrop";
 import { formatRequest } from "../../../utils/formatRequest";
+import Conversion from "../../../components/Conversion";
 
 const App = () => {
     const [data, setData] = useState({ dates: [], cad: [], usd: [], eur: [] });
     const [baseCurrency, setBaseCurrency] = useState(!localStorage.getItem("baseCurrency") ? "USD" : localStorage.getItem("baseCurrency"));
     const [loading, setLoading] = useState(false);
+    const [dataReady, setDataReady] = useState(false);
 
     const currentDate = new Date();
     const pastDate = new Date(currentDate);
@@ -26,6 +28,7 @@ const App = () => {
     const fetchExchangeRates = async (baseCurrency) => {
         try {
             setLoading(true);
+            setDataReady(false);
             const response = await fetch(
                 `https://api.frankfurter.app/${pastDateFormatted}..?from=${baseCurrency}&to=USD,CAD,EUR`
             );
@@ -58,6 +61,7 @@ const App = () => {
             console.log(resultFromBackend);
 
             setLoading(false);
+            setDataReady(true);
         } catch (error) {
             console.error("Error fetching exchange rates:", error);
             setLoading(false);
@@ -101,6 +105,10 @@ const App = () => {
                         </Select>
                         <FormHelperText>Convert 1 {baseCurrency} to other currencies</FormHelperText>
                     </FormControl>
+
+                    {
+                        dataReady && <Conversion baseCurrency={baseCurrency} />
+                    }
                 </div>
 
                 <div className={styles.chartWrapper}><ExchangeRateChart data={data} /></div>

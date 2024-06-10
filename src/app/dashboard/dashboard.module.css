@@ -26,6 +26,8 @@
 .currencySelect {
     display: flex;
     flex: 0.2;
+    flex-direction: column;
+    gap: 60px;
     justify-content: center;
     align-items: center;
     min-width: 120px;
