@@ -1,5 +1,6 @@
-### TO DOs
+## Next.js (React) app featuring a Dashboard for exchange rate data within a 2-year time span
 
-- store api res to mongodb each time the base currency changes (stop storing when all 3 currencies have been selected)
+Built with: Next.js, React, JavaScript, Material UI, Frankfurter API, Chart.js, ag-grid-react.
 
-- add currency conversion widget
+The app will be deployed to Vercel, but if you want to run it locally, clone this git repo to your machine and run `npm install`.
+Then, run `npm run dev` to start the local dev server. The web app should be accessible at http://localhost:3000.
