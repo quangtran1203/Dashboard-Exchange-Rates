@@ -12,7 +12,7 @@ const Conversion = ({ baseCurrency }) => {
 
     const fetchLatestRates = async () => {
         try {
-            const res = await fetch("http://localhost:8000/api/exchange-rate-data");
+            const res = await fetch("https://dashboard-exchange-rates-be.onrender.com/api/exchange-rate-data");
             const result = await res.json();
             setRatesData(result.data);
         } catch (error) {
