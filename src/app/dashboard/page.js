@@ -50,7 +50,7 @@ const App = () => {
 
             // format req body data to make a POST req to backend server
             const formattedData = formatRequest(baseCurrency, { dates, cad, eur, usd }, currentDate.toISOString());
-            const resFromBackend = await fetch("http://localhost:8000/api/exchange-rate-data", {
+            const resFromBackend = await fetch("https://dashboard-exchange-rates-be.onrender.com/api/exchange-rate-data", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
