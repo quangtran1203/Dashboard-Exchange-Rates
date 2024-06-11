@@ -63,7 +63,7 @@ const App = () => {
                     currentDate.toISOString()
                 );
                 const resFromBackend = await fetch(
-                    "https://dashboard-exchange-rates-be.onrender.com/api/exchange-rate-data",
+                    "http://localhost:8000/api/exchange-rate-data",
                     {
                         method: "POST",
                         headers: {
